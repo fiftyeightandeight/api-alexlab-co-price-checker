@@ -32,5 +32,6 @@ data['External'] = external_prices
 
 df = pd.DataFrame(data = data, index = token_list)
 
-with st.echo(code_location='below'):
-    st.dataframe(df)
+st.dataframe(df)
+# with st.echo(code_location='below'):
+    
