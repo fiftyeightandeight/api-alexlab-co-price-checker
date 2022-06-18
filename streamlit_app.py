@@ -12,7 +12,7 @@ def safe_execute(response):
     try:
         return json.loads(response)['price']
     except Exception:
-        return -1
+        return None
 
 instant_prices = []
 resilient_prices = []
@@ -31,7 +31,7 @@ data['Resilient (TWAP)'] = resilient_prices
 data['External'] = external_prices
 
 df = pd.DataFrame(data = data, index = token_list)
+st.table(df)
 
-st.dataframe(df)
 # with st.echo(code_location='below'):
     
