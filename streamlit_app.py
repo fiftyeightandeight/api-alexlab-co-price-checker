@@ -3,6 +3,8 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import requests
+import json 
 
 """
 # Welcome to Streamlit!
@@ -14,25 +16,27 @@ forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
-
+url = "http://api.alexlab.co/v1/price/"
+token_list = [ "token-wstx", "age000-governance-token", "token-wxusd", "token-wbtc", "token-wusda", "token-wban", "token-wslm", "token-wmia", "token-wnycc", "auto-alex" ]
 
 with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+    instant_prices = []
+    resilient_prices = []
+    external_prices = []
+    for x in token_list:
+        res = requests.get(url + x)
+        instant_prices.append(json.loads(res.text)['price'])
+        res = requests.get(url + x + '-twap')
+        resilient_prices.append(json.loads(res.text)['price'])
+        res = requests.get(url + x + '-external')
+        external_prices.append(json.loads(res.text)['price'])
+    
+    data = {}
+    data['Spot'] = instant_prices
+    data['TWAP'] = resilient_prices
+    data['External'] = external_prices
 
-    points_per_turn = total_points / num_turns
+    df = pd.DataFrame(data = data, index = token_list)
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    st.dataframe(df)
