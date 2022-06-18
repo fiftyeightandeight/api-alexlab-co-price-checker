@@ -20,6 +20,12 @@ url = "http://api.alexlab.co/v1/price/"
 # token_list = [ "token-wstx", "age000-governance-token", "token-wxusd", "token-wbtc", "token-wusda", "token-wban", "token-wslm", "token-wmia", "token-wnycc", "auto-alex" ]
 token_list = [ "token-wstx" ]
 
+def safe_execute(response):
+    try:
+        return json.loads(response)['price']
+    except Exception:
+        return "N/A"
+
 with st.echo(code_location='below'):
 
     instant_prices = []
@@ -27,11 +33,11 @@ with st.echo(code_location='below'):
     external_prices = []
     for x in token_list:
         res = requests.get(url + x)
-        instant_prices.append(json.loads(res.text)['price'])
+        instant_prices.append(safe_execute(res.text))
         res = requests.get(url + x + '-twap')
-        resilient_prices.append(json.loads(res.text)['price'])
+        resilient_prices.append(safe_execute(res.text))
         res = requests.get(url + x + '-external')
-        external_prices.append(json.loads(res.text)['price'])
+        external_prices.append(safe_execute(res.text))
     
     data = {}
     data['Spot'] = instant_prices
