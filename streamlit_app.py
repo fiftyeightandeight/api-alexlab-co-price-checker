@@ -23,7 +23,7 @@ def safe_execute(response):
     try:
         return json.loads(response)['price']
     except Exception:
-        return "N/A"
+        return -1
 
 with st.echo(code_location='below'):
 
