@@ -26,8 +26,8 @@ for x in token_list:
     external_prices.append(safe_execute(res.text))
 
 data = {}
-data['Spot'] = instant_prices
-data['TWAP'] = resilient_prices
+data['Instant (Spot)'] = instant_prices
+data['Resilient (TWAP)'] = resilient_prices
 data['External'] = external_prices
 
 df = pd.DataFrame(data = data, index = token_list)
