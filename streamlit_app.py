@@ -6,7 +6,7 @@ import requests
 import json 
 
 url = "http://api.alexlab.co/v1/price/"
-token_list = [ "token-wstx", "age000-governance-token", "token-wxusd", "token-wbtc", "token-wusda", "token-wban", "token-wslm", "token-wmia", "token-wnycc", "auto-alex" ]
+token_list = [ "token-wstx", "age000-governance-token", "auto-alex", "token-wxusd", "token-wusda", "token-wbtc", "token-xbtc", "token-wban", "token-wslm", "token-wmia", "token-wnycc" ]
 
 def safe_execute(response):
     try:
