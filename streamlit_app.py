@@ -17,8 +17,7 @@ forums](https://discuss.streamlit.io).
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
 url = "http://api.alexlab.co/v1/price/"
-# token_list = [ "token-wstx", "age000-governance-token", "token-wxusd", "token-wbtc", "token-wusda", "token-wban", "token-wslm", "token-wmia", "token-wnycc", "auto-alex" ]
-token_list = [ "token-wstx" ]
+token_list = [ "token-wstx", "age000-governance-token", "token-wxusd", "token-wbtc", "token-wusda", "token-wban", "token-wslm", "token-wmia", "token-wnycc", "auto-alex" ]
 
 def safe_execute(response):
     try:
