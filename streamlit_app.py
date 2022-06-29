@@ -5,6 +5,7 @@ import streamlit as st
 import requests
 import json 
 from datetime import datetime
+import pytz
 
 url = "http://api.alexlab.co/v1/price/"
 token_list = [ "token-wstx", "age000-governance-token", "auto-alex", "token-wxusd", "token-wusda", "token-wbtc", "token-xbtc", "token-wban", "token-wslm", "token-wmia", "token-wnycc" ]
@@ -33,7 +34,7 @@ data['External'] = external_prices
 
 df = pd.DataFrame(data = data, index = token_list)
 st.table(df)
-st.write(datetime.now())
+st.write(datetime.now(pytz.timezone('HKG')))
 
 # with st.echo(code_location='below'):
     
