@@ -34,7 +34,7 @@ data['External'] = external_prices
 
 df = pd.DataFrame(data = data, index = token_list)
 st.table(df)
-st.info('Last Refreshed at ' + datetime.now(pytz.timezone('Asia/Hong_Kong')))
+st.write('Last Refreshed at ' + datetime.now(pytz.timezone('Asia/Hong_Kong')))
 
 # with st.echo(code_location='below'):
     
